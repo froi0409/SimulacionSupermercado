@@ -15,7 +15,6 @@ int main(int argc, char** argv) {
     cout << "Ingrese el número de cajas con las que el supermercado contará: ";
     cin >> cajasTotales;
 
-    cout << "Carretas: " << carretasTotales << "    Cajas: " << cajasTotales;
-
+    cout << "Carretas: " << carretasTotales << "    Cajas: " << cajasTotales << endl;
     return 0;
 }
