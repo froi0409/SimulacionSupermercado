@@ -7,8 +7,11 @@ class PilaCarretas{
         PilaCarretas();
         Carreta* cabeza;
         void push(int);
-        void pop();
+        int pop();
         void mostrarPila();
+        int getSize();
+    private:
+        int size;
 };
 
 #endif

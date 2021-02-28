@@ -5,6 +5,7 @@ using namespace std;
 ColaEspera::ColaEspera() {
     this->inicio = nullptr;
     this->fin = nullptr;
+    this->size = 0;
 }
 
 //Agrega al cliente a la cola de espera de carretas
@@ -16,6 +17,7 @@ void ColaEspera::push(int idCliente) {
         fin->siguiente = tmp;
     }
     fin = tmp;
+    size++;
 }
 
 //Método utilizado para eliminar a un cliente de la cola de espera de carreta
@@ -27,6 +29,7 @@ int ColaEspera::pop() {
         valorIdCliente = inicio->idCliente;
         inicio = inicio->siguiente;
         delete tmp;
+        size--;
         return valorIdCliente;
     } else {
         return 0;
@@ -46,4 +49,8 @@ void ColaEspera::mostrarCola() {
             tmp = tmp->siguiente;
         }
     }
+}
+
+int ColaEspera::getSize() {
+    return size;
 }

@@ -10,5 +10,8 @@ class ColaEspera {
         void push(int);
         int pop();
         void mostrarCola();
+        int getSize();
+    private:
+        int size;
 };
 #endif
