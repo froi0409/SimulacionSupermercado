@@ -4,11 +4,11 @@
 
 class ColaEspera {
     public:
-    ColaEspera();
-    NodoColaEspera *inicio;
-    NodoColaEspera *fin;
-    void push(int);
-    int pop();
-    void mostrarCola();
+        ColaEspera();
+        NodoColaEspera *inicio;
+        NodoColaEspera *fin;
+        void push(int);
+        int pop();
+        void mostrarCola();
 };
 #endif
