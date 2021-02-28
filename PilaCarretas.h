@@ -1,13 +1,14 @@
 #ifndef PILACARRETAS_H
 #define PILACARRETAS_H
+#include "Carreta.h"
 #include <string>
 class PilaCarretas{
     public:
         PilaCarretas();
-        void insertarCarreta();
-        int removerCarreta();
-    private:
-
+        Carreta* cabeza;
+        void push(int);
+        void pop();
+        void mostrarPila();
 };
 
 #endif
