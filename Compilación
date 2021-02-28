@@ -1,1 +1,1 @@
-g++ Main.cpp Inicio.h Inicio.cpp Carreta.h Carreta.cpp PilaCarretas.h PilaCarretas.cpp
+g++ Main.cpp Inicio.h Inicio.cpp Carreta.h Carreta.cpp PilaCarretas.h PilaCarretas.cpp ColaEspera.h ColaEspera.cpp NodoColaEspera.h NodoColaEspera.cpp
