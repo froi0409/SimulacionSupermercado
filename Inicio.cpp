@@ -2,6 +2,7 @@
 #include "Carreta.h"
 #include "PilaCarretas.h"
 #include "ColaEspera.h"
+#include "ListaCajas.h"
 #include <iostream>
 #include <cstdlib>
 using namespace std;
@@ -15,6 +16,7 @@ void Inicio::menuInicial() {
     PilaCarretas *pilaCarretas1 = new PilaCarretas();
     PilaCarretas *pilaCarretas2 = new PilaCarretas();
     ColaEspera *colaEsperaCarretas = new ColaEspera();
+    ListaCajas *listaCajas = new ListaCajas();
 
     cout << "¡BIENVENIDO AL SIMULADOR DE SUPERMERCADO 3000!" << endl;
     cout << "Ingrese el número de carretas con las que el supermercado contará: ";
@@ -43,6 +45,13 @@ void Inicio::menuInicial() {
     cout << "Clientes en la cola de espera: " << endl;
     colaEsperaCarretas->mostrarCola();
 
+    cout << endl << endl;
+
+    //Inicializamos las cajas que estarán en el supermercado
+    inicializacionCajas(listaCajas, cajasTotales);
+    cout << "Cajas existentes en el supermercado:" << endl;
+    listaCajas->mostrarLista();
+
 }
 
 //Método que nos sirve para introducir las carretas a una pila cuando se inicia la ejecución de la simulación
@@ -60,5 +69,11 @@ void Inicio::inicializacionCarretas(PilaCarretas *pilaCarretas1, PilaCarretas *p
 void Inicio::inicializacionColaEspera(ColaEspera* colaEsperaCarretas, int clientesTotales) {
     for(int i = 1; i <= clientesTotales; i++) {
         colaEsperaCarretas->push(i);
+    }
+}
+
+void Inicio::inicializacionCajas(ListaCajas *listaCajas, int cajasTotales) {
+    for(int i = 1; i <= cajasTotales; i++) {
+        listaCajas->push(i);
     }
 }

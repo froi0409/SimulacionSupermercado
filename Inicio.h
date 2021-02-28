@@ -3,6 +3,7 @@
 #include "Carreta.h"
 #include "PilaCarretas.h"
 #include "ColaEspera.h"
+#include "ListaCajas.h"
 #include <cstdlib>
 #include <string>
 class Inicio {
@@ -10,5 +11,6 @@ class Inicio {
     void menuInicial();
     void inicializacionCarretas(PilaCarretas*, PilaCarretas*, int); 
     void inicializacionColaEspera(ColaEspera*, int);   
+    void inicializacionCajas(ListaCajas*, int);
 };
 #endif
