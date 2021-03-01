@@ -45,8 +45,9 @@ bool ListaCajas::ocuparCaja(int idCliente,int idCarreta) {
                 tmp->idCliente = idCliente;
                 tmp->idCarreta = idCarreta;
                 tmp->turnosOcupados = rand()%(3)+1;
+                tmp->turnosOcupados++;
                 tmp->estado = "OCUPADA";
-                cout << "El cliente " << idCliente << " ha ocupado la caja " << tmp->idCaja << " con la carreta " << idCarreta << endl;
+                cout << "El cliente " << idCliente << " ha ocupado la caja " << tmp->idCaja << " con la carreta " << idCarreta << " por los siguientes " << tmp->turnosOcupados-1 << " turnos" << endl;
                 return true;
             }
             tmp = tmp->siguiente;
@@ -57,4 +58,28 @@ bool ListaCajas::ocuparCaja(int idCliente,int idCarreta) {
 
 int ListaCajas::getSize() {
     return size;
+}
+
+void ListaCajas::verificarTurnos(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2) {
+    if(inicio != nullptr) {
+        NodoListaCajas *tmp = inicio;
+        while(tmp != nullptr) {
+            if(tmp->estado == "OCUPADA") {
+                tmp->turnosOcupados--;
+                if(tmp->turnosOcupados == 0) {
+                    tmp->estado = "LIBRE";
+                    int ubicacionCarreta = rand()%(2)+1;
+                    cout << "El cliente " << tmp->idCliente << " paga y se retira del supermercado. La carreta " << tmp->idCarreta << " es colocada en la ";
+                    if (ubicacionCarreta == 1) {
+                        pilaCarretas1->push(tmp->idCarreta);
+                        cout << "pila 1" << endl;
+                    } else {
+                        pilaCarretas2->push(tmp->idCarreta);
+                        cout << "pila 2" << endl;
+                    }
+                }
+            }
+            tmp = tmp->siguiente;
+        }
+    }
 }

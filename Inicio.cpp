@@ -145,13 +145,13 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     bool repetir = true;
     while(repetir) {
         if(colaPagar->inicio != nullptr && listaCajas->ocuparCaja(colaPagar->inicio->idCliente,colaPagar->inicio->idCarreta)) {
-            cout << "Inicio pop" <<endl;
             colaPagar->pop();
-            cout << "Fin pop" << endl;
         } else {
             repetir = false;
         }
     }
 
+    //Verificamos que los clientes paguen
+    listaCajas->verificarTurnos(pilaCarretas1,pilaCarretas2);
+
 }
-//!listaCajas->ocuparCaja(clienteAleatorio,carretaClienteAleatorio
