@@ -12,7 +12,7 @@ using namespace std;
 void Inicio::menuInicial() {
 
     //Declaramos las principales variables que utilizaremos
-    int carretasTotales, cajasTotales, clientesTotales;
+    int carretasTotales, cajasTotales, clientesTotales, clientesComprando, clientesPorPagar;
 
     //Creación de las estructuras que utilizaremos
     PilaCarretas *pilaCarretas1 = new PilaCarretas();
@@ -30,7 +30,11 @@ void Inicio::menuInicial() {
     cin >> cajasTotales;
     cout << "Ingrese el número de clientes que estarán en el supermercado: ";
     cin >> clientesTotales;
-    
+    cout << "Ingrese la cantidad de clientes que están comprando: ";
+    cin >> clientesComprando;
+    cout << "Ingrese la cantidad de clientes que hay en la cola de pagos: ";
+    cin >> clientesPorPagar;
+
     //Inicializamos las pilas
     inicializacionCarretas(pilaCarretas1, pilaCarretas2, carretasTotales);
     cout << "CARRETAS EN PILA 1"<<endl;
@@ -50,6 +54,8 @@ void Inicio::menuInicial() {
     cout << "Cajas existentes en el supermercado:" << endl;
     listaCajas->mostrarLista();
     cout << endl << endl;
+
+    //Inicializamos a los clientes que están comprando
 
     //Ejecutamos la simulación
     char repeticion = 's';
