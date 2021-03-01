@@ -95,7 +95,9 @@ void Inicio::inicializacionCajas(ListaCajas *listaCajas, int cajasTotales) {
 void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2, ColaEspera *colaEsperaCarretas, ColaPagar *colaPagar, ListaCajas *listaCajas, ListaCompras *listaCompras) {
     //Iniciaomos con la simulación
     pasosSimulacion++;
-    cout << "********************PASO " << pasosSimulacion << "********************" << endl;
+    cout << "***************************************PASO " << pasosSimulacion << "***************************************" << endl;
+    
+    //Ingresamos clientes a la cola de compras si hay carretas disponibles y clientes en la cola de espera
     int clientesEnEspera = colaEsperaCarretas->getSize(), carretasEnPila1 = pilaCarretas1->getSize(), carretasEnPila2 = pilaCarretas2->getSize();
     while (clientesEnEspera > 0 && (carretasEnPila1 > 0 || carretasEnPila2 > 0)) {
         if(clientesEnEspera > 0) {
@@ -127,4 +129,29 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
         carretasEnPila1 = pilaCarretas1->getSize();
         carretasEnPila2 = pilaCarretas2->getSize();
     }
+
+    //Los clientes que han terminado de comprar pasan a la cola para pagar en cajas
+    int clienteAleatorio = rand()%(100)+1;
+    cout << "Número Aleatorio Generado: " << clienteAleatorio << endl;
+    int carretaClienteAleatorio = listaCompras->pop(clienteAleatorio);
+    if(carretaClienteAleatorio == 0) {
+        cout << "Ningún cliente pasa al área de pagos" << endl; 
+    } else {
+        colaPagar->push(clienteAleatorio, carretaClienteAleatorio);
+        cout << "El cliente " << clienteAleatorio << " ha ingresado a la cola para pagar en cajas, con la carreta " << carretaClienteAleatorio << endl;
+    }
+
+    //Se verifica si los clientes de la cola pueden pagar en cajas
+    bool repetir = true;
+    while(repetir) {
+        if(colaPagar->inicio != nullptr && listaCajas->ocuparCaja(colaPagar->inicio->idCliente,colaPagar->inicio->idCarreta)) {
+            cout << "Inicio pop" <<endl;
+            colaPagar->pop();
+            cout << "Fin pop" << endl;
+        } else {
+            repetir = false;
+        }
+    }
+
 }
+//!listaCajas->ocuparCaja(clienteAleatorio,carretaClienteAleatorio

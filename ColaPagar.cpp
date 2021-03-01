@@ -6,6 +6,7 @@ using namespace std;
 ColaPagar::ColaPagar() {
     this->inicio = nullptr;
     this->fin = nullptr;
+    this->size = 0;
 }
 
 //Método que sirve para agregar a un cliente a la cola de pagos en caja
@@ -18,6 +19,7 @@ void ColaPagar::push(int idCliente, int idCarreta) {
     }
 
     fin = tmp;
+    size++;
 }
 
 //Método que nos sirve para eliminar al cliente que viene en primera posición de la cola
@@ -26,6 +28,7 @@ void ColaPagar::pop() {
         NodoColaPagar *tmp = inicio;
         inicio = inicio->siguiente;
         delete tmp;
+        size--;
     }
 }
 
@@ -41,4 +44,9 @@ void ColaPagar::mostrarCola() {
             tmp = tmp->siguiente;
         }
     }
+}
+
+//Método que nos sirve para obtener el tamaño de la cola
+int ColaPagar::getSize() {
+    return size;
 }

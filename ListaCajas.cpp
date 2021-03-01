@@ -5,6 +5,7 @@ using namespace std;
 ListaCajas::ListaCajas() {
     this->inicio = nullptr;
     this->fin = nullptr;
+    this->size = 0;
 }
 
 void ListaCajas::push(int idCaja) {
@@ -17,10 +18,7 @@ void ListaCajas::push(int idCaja) {
         tmp->anterior = fin;
         fin = tmp;
     }
-}
-
-void ListaCajas::pop() {
-    
+    size++;
 }
 
 void ListaCajas::mostrarLista() {
@@ -29,9 +27,34 @@ void ListaCajas::mostrarLista() {
     } else {
         NodoListaCajas *tmp = inicio;
         cout << "Las cajas existentes en el supermercado son las siguiente: " << endl;
-        while(tmp != fin) {
+        while(tmp != nullptr) {
             cout << "Caja " << tmp->idCaja << endl;
+            tmp = tmp->siguiente;
+        } 
+    }
+}
+
+bool ListaCajas::ocuparCaja(int idCliente,int idCarreta) {
+    if(inicio == nullptr) {
+        cout << "No hay cajas disponibles";
+        return false;
+    } else {
+        NodoListaCajas *tmp = inicio;
+        while(tmp != nullptr) {
+            if (tmp->estado == "LIBRE") {
+                tmp->idCliente = idCliente;
+                tmp->idCarreta = idCarreta;
+                tmp->turnosOcupados = rand()%(3)+1;
+                tmp->estado = "OCUPADA";
+                cout << "El cliente " << idCliente << " ha ocupado la caja " << tmp->idCaja << " con la carreta " << idCarreta << endl;
+                return true;
+            }
             tmp = tmp->siguiente;
         }
     }
+    return false;
+}
+
+int ListaCajas::getSize() {
+    return size;
 }

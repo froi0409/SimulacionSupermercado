@@ -9,5 +9,8 @@ class ColaPagar{
         void push(int, int);
         void pop();
         void mostrarCola();
+        int getSize();
+    private:
+        int size;
 };
 #endif

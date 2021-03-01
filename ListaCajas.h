@@ -7,7 +7,10 @@ class ListaCajas {
         NodoListaCajas *inicio;
         NodoListaCajas *fin;
         void push(int);
-        void pop();
         void mostrarLista();
+        bool ocuparCaja(int,int);
+        int getSize();
+    private:
+        int size;
 };
 #endif
