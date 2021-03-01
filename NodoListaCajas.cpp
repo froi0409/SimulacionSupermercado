@@ -8,4 +8,6 @@ NodoListaCajas::NodoListaCajas(int idCaja) {
     this->anterior = nullptr;
     this->turnosOcupados = 1;
     this->estado = "LIBRE";
+    this->idCarreta = nullptr;
+    this->idCliente = nullptr;
 }

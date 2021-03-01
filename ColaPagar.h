@@ -6,7 +6,7 @@ class ColaPagar{
         ColaPagar();
         NodoColaPagar *inicio;
         NodoColaPagar *fin;
-        void push(int, int);
+        void push(Persona*, Carreta*);
         void pop();
         void mostrarCola();
         int getSize();

@@ -1,9 +1,10 @@
 #ifndef NODOCOLAESPERA_H
 #define NODOCOLAESPERA_H
+#include "Persona.h"
 class NodoColaEspera {
     public:
-    NodoColaEspera(int);
+    NodoColaEspera(Persona*);
     NodoColaEspera *siguiente;
-    int idCliente;
+    Persona *idCliente;
 };
 #endif

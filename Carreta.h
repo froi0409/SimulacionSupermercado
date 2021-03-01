@@ -3,7 +3,6 @@
 class Carreta {
     public:
         Carreta(int id);
-        Carreta *siguiente;
         int id;
 };
 #endif

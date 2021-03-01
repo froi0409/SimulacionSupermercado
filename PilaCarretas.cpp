@@ -9,21 +9,21 @@ PilaCarretas::PilaCarretas() {
 }
 
 //Agrega un elemento a la pila
-void PilaCarretas::push(int id) {
-    Carreta *tmp;
-    tmp = new Carreta(id);
+void PilaCarretas::push(Carreta* id) {
+    NodoPilaCarretas *tmp;
+    tmp = new NodoPilaCarretas(id);
     tmp->siguiente = cabeza;
     cabeza = tmp;
     size++;
 }
 
 //Elimina un elemento de la pila
-int PilaCarretas::pop() {
+Carreta* PilaCarretas::pop() {
     if(cabeza == nullptr) {
         return 0;
     } else {
-        int idCarreta = cabeza->id;
-        Carreta *tmp = cabeza;
+        Carreta* idCarreta = cabeza->carreta;
+        NodoPilaCarretas *tmp = cabeza;
         cabeza = cabeza->siguiente;
         delete tmp;
         size--;
@@ -36,9 +36,9 @@ void PilaCarretas::mostrarPila() {
     if(cabeza == nullptr) {
         cout << "No hay datos en la pila" << endl;
     } else {
-        Carreta *tmp = cabeza;
+        NodoPilaCarretas *tmp = cabeza;
         while(tmp != nullptr) {
-            cout << "Carreta: " << tmp->id << endl;
+            cout << "Carreta: " << tmp->carreta->id << endl;
             tmp = tmp->siguiente;
         }
     }

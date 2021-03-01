@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 
-NodoColaEspera::NodoColaEspera(int idCliente) {
+NodoColaEspera::NodoColaEspera(Persona* idCliente) {
     this->idCliente = idCliente;
     this->siguiente = nullptr;
 }

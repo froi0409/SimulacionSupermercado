@@ -8,9 +8,8 @@ class ListaCompras {
         ListaCompras();
         NodoListaCompras *inicio;
         NodoListaCompras *fin;
-        void push(int, int);
-        int pop(int);
-        int buscarCarreta(int idCliente);
+        void push(Persona*, Carreta*);
+        NodoListaCompras* pop(int);
         void mostrarLista();
 };
 #endif

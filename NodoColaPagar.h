@@ -1,10 +1,12 @@
 #ifndef NODOCOLAPAGAR_H
 #define NODOCOLAPAGAR_H
+#include "Persona.h"
+#include "Carreta.h"
 class NodoColaPagar {
     public:
-        NodoColaPagar(int, int);
+        NodoColaPagar(Persona*, Carreta*);
         NodoColaPagar *siguiente;
-        int idCliente;
-        int idCarreta;
+        Persona* idCliente;
+        Carreta* idCarreta;
 };
 #endif

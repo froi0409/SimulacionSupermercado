@@ -3,5 +3,4 @@
 
 Carreta::Carreta(int id) {
     this->id = id;
-    this->siguiente = nullptr;
 }

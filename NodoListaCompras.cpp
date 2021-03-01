@@ -3,7 +3,7 @@
 #include <cstdlib>
 using namespace std;
 
-NodoListaCompras::NodoListaCompras(int idCliente, int idCarreta) {
+NodoListaCompras::NodoListaCompras(Persona *idCliente, Carreta *idCarreta) {
     this->idCliente = idCliente;
     this->idCarreta = idCarreta;
     this->siguiente = nullptr;

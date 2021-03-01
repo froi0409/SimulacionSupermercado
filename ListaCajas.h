@@ -2,6 +2,8 @@
 #define LISTACAJAS_H
 #include "NodoListaCajas.h"
 #include "PilaCarretas.h"
+#include "Persona.h"
+#include "Carreta.h"
 class ListaCajas {
     public:
         ListaCajas();
@@ -10,7 +12,7 @@ class ListaCajas {
         void push(int);
         void mostrarLista();
         void verificarTurnos(PilaCarretas*, PilaCarretas*);
-        bool ocuparCaja(int,int);
+        bool ocuparCaja(Persona*,Carreta*);
         int getSize();
     private:
         int size;

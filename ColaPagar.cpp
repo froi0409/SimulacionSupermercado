@@ -10,7 +10,7 @@ ColaPagar::ColaPagar() {
 }
 
 //Método que sirve para agregar a un cliente a la cola de pagos en caja
-void ColaPagar::push(int idCliente, int idCarreta) {
+void ColaPagar::push(Persona* idCliente, Carreta* idCarreta) {
     NodoColaPagar *tmp = new NodoColaPagar(idCliente, idCarreta);
     if(inicio == nullptr) {
         inicio = tmp;
@@ -40,7 +40,7 @@ void ColaPagar::mostrarCola() {
         NodoColaPagar *tmp = inicio;
         cout << "Cola de Clientes en espera a pagar:" << endl;
         while(tmp != nullptr) {
-            cout << "Cliente: " << tmp->idCliente << " - Carreta: " << tmp->idCarreta << endl;
+            cout << "Cliente: " << tmp->idCliente->idPersona << " - Carreta: " << tmp->idCarreta->id << endl;
             tmp = tmp->siguiente;
         }
     }

@@ -34,7 +34,7 @@ void ListaCajas::mostrarLista() {
     }
 }
 
-bool ListaCajas::ocuparCaja(int idCliente,int idCarreta) {
+bool ListaCajas::ocuparCaja(Persona* idCliente,Carreta* idCarreta) {
     if(inicio == nullptr) {
         cout << "No hay cajas disponibles";
         return false;
@@ -47,7 +47,7 @@ bool ListaCajas::ocuparCaja(int idCliente,int idCarreta) {
                 tmp->turnosOcupados = rand()%(3)+1;
                 tmp->turnosOcupados++;
                 tmp->estado = "OCUPADA";
-                cout << "El cliente " << idCliente << " ha ocupado la caja " << tmp->idCaja << " con la carreta " << idCarreta << " por los siguientes " << tmp->turnosOcupados-1 << " turnos" << endl;
+                cout << "El cliente " << idCliente->idPersona << " ha ocupado la caja " << tmp->idCaja << " con la carreta " << idCarreta->id << " por los siguientes " << tmp->turnosOcupados-1 << " turnos" << endl;
                 return true;
             }
             tmp = tmp->siguiente;
@@ -69,7 +69,7 @@ void ListaCajas::verificarTurnos(PilaCarretas *pilaCarretas1, PilaCarretas *pila
                 if(tmp->turnosOcupados == 0) {
                     tmp->estado = "LIBRE";
                     int ubicacionCarreta = rand()%(2)+1;
-                    cout << "El cliente " << tmp->idCliente << " paga y se retira del supermercado. La carreta " << tmp->idCarreta << " es colocada en la ";
+                    cout << "El cliente " << tmp->idCliente->idPersona << " paga y se retira del supermercado. La carreta " << tmp->idCarreta->id << " es colocada en la ";
                     if (ubicacionCarreta == 1) {
                         pilaCarretas1->push(tmp->idCarreta);
                         cout << "pila 1" << endl;
@@ -77,6 +77,8 @@ void ListaCajas::verificarTurnos(PilaCarretas *pilaCarretas1, PilaCarretas *pila
                         pilaCarretas2->push(tmp->idCarreta);
                         cout << "pila 2" << endl;
                     }
+                    delete tmp->idCliente;
+                    break;
                 }
             }
             tmp = tmp->siguiente;

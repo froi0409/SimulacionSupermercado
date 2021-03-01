@@ -5,6 +5,7 @@
 #include "ListaCajas.h"
 #include "ListaCompras.h"
 #include "ColaPagar.h"
+#include "Persona.h"
 #include <iostream>
 #include <cstdlib>
 using namespace std;
@@ -79,16 +80,16 @@ void Inicio::inicializacionCarretas(PilaCarretas *pilaCarretas1, PilaCarretas *p
     for(int i = 1; i <= carretasTotales; i++) {
         int ubicacion = rand()%(2)+1;
         if (ubicacion == 1) {
-            pilaCarretas1->push(i);
+            pilaCarretas1->push(new Carreta(i));
         } else {
-            pilaCarretas2->push(i);
+            pilaCarretas2->push(new Carreta(i));
         }
     }
 }
 
 void Inicio::inicializacionColaEspera(ColaEspera* colaEsperaCarretas, int clientesTotales) {
     for(int i = 1; i <= clientesTotales; i++) {
-        colaEsperaCarretas->push(i);
+        colaEsperaCarretas->push(new Persona(i));
     }
 }
 
@@ -111,23 +112,27 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
             
             if(tomarCarreta == 1) { //Si hay clientes en la cola de espera de carretas, prioriza la pila de carretas 1
                 if(carretasEnPila1 > 0) {
-                    int clienteIngresado = colaEsperaCarretas->pop(), carretaIngresada = pilaCarretas1->pop();
+                    Persona* clienteIngresado = colaEsperaCarretas->pop(); 
+                    Carreta* carretaIngresada = pilaCarretas1->pop();
                     listaCompras->push(clienteIngresado, carretaIngresada);
-                    cout << "El cliente " << clienteIngresado << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada << endl;
+                    cout << "El cliente " << clienteIngresado->idPersona << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada->id << endl;
                 } else if (carretasEnPila2 > 0) {
-                    int clienteIngresado = colaEsperaCarretas->pop(), carretaIngresada = pilaCarretas2->pop();
+                    Persona* clienteIngresado = colaEsperaCarretas->pop(); 
+                    Carreta* carretaIngresada = pilaCarretas2->pop();
                     listaCompras->push(clienteIngresado, carretaIngresada);
-                    cout << "El cliente " << clienteIngresado << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada << endl;
+                    cout << "El cliente " << clienteIngresado->idPersona << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada->id << endl;
                 }
             } else { //Si hay clientes en la cola de espera de carretas, prioriza la pila de carretas 2
                 if(carretasEnPila2 > 0) {
-                    int clienteIngresado = colaEsperaCarretas->pop(), carretaIngresada = pilaCarretas2->pop();
+                    Persona* clienteIngresado = colaEsperaCarretas->pop(); 
+                    Carreta* carretaIngresada = pilaCarretas2->pop();
                     listaCompras->push(clienteIngresado, carretaIngresada);
-                    cout << "El cliente " << clienteIngresado << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada << endl;
+                    cout << "El cliente " << clienteIngresado->idPersona << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada->id << endl;
                 } else if (carretasEnPila1 > 0) {
-                    int clienteIngresado = colaEsperaCarretas->pop(), carretaIngresada = pilaCarretas1->pop();
+                    Persona* clienteIngresado = colaEsperaCarretas->pop(); 
+                    Carreta* carretaIngresada = pilaCarretas1->pop();
                     listaCompras->push(clienteIngresado, carretaIngresada);
-                    cout << "El cliente " << clienteIngresado << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada << endl;
+                    cout << "El cliente " << clienteIngresado->idPersona << " ha ingresado a comprar en el supermercado con la carreta " << carretaIngresada->id << endl;
                 }
             }
         }
@@ -139,12 +144,15 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     //Los clientes que han terminado de comprar pasan a la cola para pagar en cajas
     int clienteAleatorio = rand()%(100)+1;
     cout << "Número Aleatorio Generado: " << clienteAleatorio << endl;
-    int carretaClienteAleatorio = listaCompras->pop(clienteAleatorio);
-    if(carretaClienteAleatorio == 0) {
+    NodoListaCompras* nodoAleatorio = listaCompras->pop(clienteAleatorio);
+    if(nodoAleatorio == nullptr) {
         cout << "Ningún cliente pasa al área de pagos" << endl; 
     } else {
-        colaPagar->push(clienteAleatorio, carretaClienteAleatorio);
-        cout << "El cliente " << clienteAleatorio << " ha ingresado a la cola para pagar en cajas, con la carreta " << carretaClienteAleatorio << endl;
+        int clientePagando = nodoAleatorio->idCliente->idPersona;
+        int carretaPagando = nodoAleatorio->idCarreta->id;
+        colaPagar->push(nodoAleatorio->idCliente, nodoAleatorio->idCarreta);
+        cout << "El cliente " << clientePagando << " ha ingresado a la cola para pagar en cajas, con la carreta " << carretaPagando << endl;
+        delete nodoAleatorio;
     }
 
     //Se verifica si los clientes de la cola pueden pagar en cajas

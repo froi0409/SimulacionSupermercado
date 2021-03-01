@@ -9,7 +9,7 @@ ColaEspera::ColaEspera() {
 }
 
 //Agrega al cliente a la cola de espera de carretas
-void ColaEspera::push(int idCliente) {
+void ColaEspera::push(Persona *idCliente) {
     NodoColaEspera *tmp = new NodoColaEspera(idCliente);
     if(inicio == nullptr) {
         inicio = tmp;
@@ -22,10 +22,10 @@ void ColaEspera::push(int idCliente) {
 
 //Método utilizado para eliminar a un cliente de la cola de espera de carreta
 //Retorna el id del cliente que abandona la cola para entrar al supermercado
-int ColaEspera::pop() {
+Persona* ColaEspera::pop() {
     if (inicio != nullptr) {
         NodoColaEspera *tmp = inicio;
-        int valorIdCliente;
+        Persona* valorIdCliente;
         valorIdCliente = inicio->idCliente;
         inicio = inicio->siguiente;
         delete tmp;
@@ -45,7 +45,7 @@ void ColaEspera::mostrarCola() {
         NodoColaEspera *tmp = inicio;
         cout << "cola de clientes en espera de carreta: " << endl;
         while(tmp != nullptr) {
-            cout << "Cliente " << tmp->idCliente << endl;
+            cout << "Cliente " << tmp->idCliente->idPersona << endl;
             tmp = tmp->siguiente;
         }
     }
