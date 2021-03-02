@@ -61,7 +61,7 @@ void ListaCompras::mostrarLista() {
         NodoListaCompras *tmp = inicio;
         cout << "Información de los clientes que están en compra dentro del supermercado" << endl;
         do {
-            cout << "Cliente: " << tmp->idCliente->idPersona << " - Carreta: " << tmp->idCarreta << endl;
+            cout << "Cliente: " << tmp->idCliente->idPersona << " - Carreta: " << tmp->idCarreta->id << endl;
             tmp = tmp->siguiente;
         } while(tmp->siguiente != inicio->siguiente);
     }

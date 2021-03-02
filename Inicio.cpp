@@ -13,7 +13,7 @@ using namespace std;
 void Inicio::menuInicial() {
 
     //Declaramos las principales variables que utilizaremos
-    int carretasTotales, cajasTotales, clientesTotales, clientesComprando, clientesPorPagar;
+    int cajasTotales, clientesComprando, clientesPorPagar;
 
     //Creación de las estructuras que utilizaremos
     PilaCarretas *pilaCarretas1 = new PilaCarretas();
@@ -29,7 +29,7 @@ void Inicio::menuInicial() {
     cin >> carretasTotales;
     cout << "Ingrese el número de cajas con las que el supermercado contará: ";
     cin >> cajasTotales;
-    cout << "Ingrese el número de clientes que estarán en el supermercado: ";
+    cout << "Ingrese el número de clientes que estarán en la cola de espera de carretas: ";
     cin >> clientesTotales;
     cout << "Ingrese la cantidad de clientes que están comprando: ";
     cin >> clientesComprando;
@@ -57,6 +57,19 @@ void Inicio::menuInicial() {
     cout << endl << endl;
 
     //Inicializamos a los clientes que están comprando
+    clientesTotales += clientesComprando;
+    carretasTotales += clientesComprando;
+    inicializacionCompras(listaCompras, clientesTotales, carretasTotales, clientesComprando);
+    cout << "Información de las personas que están comprando:" << endl;
+    listaCompras->mostrarLista();
+    cout << endl << endl;
+
+    //Inicializamos a los clientes que están en la cola de pagos
+    clientesTotales += clientesComprando;
+    carretasTotales += clientesComprando;
+    inicializacionPagos(colaPagar, clientesTotales, carretasTotales, clientesPorPagar);
+    colaPagar->mostrarCola();
+    cout << endl << endl;
 
     //Ejecutamos la simulación
     char repeticion = 's';
@@ -96,6 +109,24 @@ void Inicio::inicializacionColaEspera(ColaEspera* colaEsperaCarretas, int client
 void Inicio::inicializacionCajas(ListaCajas *listaCajas, int cajasTotales) {
     for(int i = 1; i <= cajasTotales; i++) {
         listaCajas->push(i);
+    }
+}
+
+void Inicio::inicializacionCompras(ListaCompras *listaCompras, int clientesTotales, int carretasTotales, int clientesComprando) {
+    int inicioClientes = clientesTotales - clientesComprando + 1;
+    int indicadorCarreta = carretasTotales - clientesComprando + 1;
+    for(int i = inicioClientes; i <= clientesTotales; i++) {
+        listaCompras->push(new Persona(i), new Carreta(indicadorCarreta));
+        indicadorCarreta++;
+    }
+}
+
+void Inicio::inicializacionPagos(ColaPagar *colaPagar, int clientesTotales, int carretasTotales, int clientesPorPagar) {
+    int inicioClientes = clientesTotales - clientesPorPagar + 1;
+    int indicadorCarreta = carretasTotales - clientesPorPagar + 1;
+    for(int i = inicioClientes; i <= clientesTotales; i++) {
+        colaPagar->push(new Persona(i), new Carreta(indicadorCarreta));
+        indicadorCarreta++;
     }
 }
 

@@ -78,7 +78,6 @@ void ListaCajas::verificarTurnos(PilaCarretas *pilaCarretas1, PilaCarretas *pila
                         cout << "pila 2" << endl;
                     }
                     delete tmp->idCliente;
-                    break;
                 }
             }
             tmp = tmp->siguiente;
