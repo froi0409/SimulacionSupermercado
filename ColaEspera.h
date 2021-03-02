@@ -2,7 +2,8 @@
 #define COLAESPERA_H
 #include "Persona.h"
 #include "NodoColaEspera.h"
-
+#include <string>
+using namespace std;
 class ColaEspera {
     public:
         ColaEspera();
@@ -12,6 +13,7 @@ class ColaEspera {
         Persona* pop();
         void mostrarCola();
         int getSize();
+        string dotCode();
     private:
         int size;
 };

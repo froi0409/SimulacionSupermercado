@@ -1,0 +1,57 @@
+digraph Simulacion {
+subgraph cluster_colaEsperaCarretas {
+Cliente11;
+Cliente12;
+Cliente13;
+Cliente14;
+Cliente15;
+Cliente11 -> Cliente12;
+Cliente12 -> Cliente13;
+Cliente13 -> Cliente14;
+Cliente14 -> Cliente15;
+
+label="Cola Para Carretas";
+}
+subgraph cluster_pilaCarretas1 {
+
+label="Pila de Carretas 1";
+}
+subgraph cluster_pilaCarretas2 {
+
+label="Pila de Carretas 2";
+}
+subgraph cluster_listaCompras {
+Cliente16[label="Clie:16 Carr:11"];
+Cliente17[label="Clie:17 Carr:12"];
+Cliente18[label="Clie:18 Carr:13"];
+Cliente19[label="Clie:19 Carr:14"];
+Cliente20[label="Clie:20 Carr:15"];
+Cliente1[label="Clie:1 Carr:8"];
+Cliente2[label="Clie:2 Carr:10"];
+Cliente3[label="Clie:3 Carr:7"];
+Cliente4[label="Clie:4 Carr:9"];
+Cliente5[label="Clie:5 Carr:6"];
+Cliente6[label="Clie:6 Carr:2"];
+Cliente7[label="Clie:7 Carr:5"];
+Cliente8[label="Clie:8 Carr:4"];
+Cliente9[label="Clie:9 Carr:3"];
+Cliente10[label="Clie:10 Carr:1"];
+Cliente16 -> Cliente17;
+Cliente17 -> Cliente18;
+Cliente18 -> Cliente19;
+Cliente19 -> Cliente20;
+Cliente20 -> Cliente1;
+Cliente1 -> Cliente2;
+Cliente2 -> Cliente3;
+Cliente3 -> Cliente4;
+Cliente4 -> Cliente5;
+Cliente5 -> Cliente6;
+Cliente6 -> Cliente7;
+Cliente7 -> Cliente8;
+Cliente8 -> Cliente9;
+Cliente9 -> Cliente10;
+Cliente10 -> Cliente16;
+
+label="Clientes en Compra";
+}
+}

@@ -8,6 +8,7 @@
 #include "Persona.h"
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
 using namespace std;
 
 void Inicio::menuInicial() {
@@ -70,6 +71,9 @@ void Inicio::menuInicial() {
     inicializacionPagos(colaPagar, clientesTotales, carretasTotales, clientesPorPagar);
     colaPagar->mostrarCola();
     cout << endl << endl;
+
+    //Creamos la gráfica inicial
+    crearGrafica(pilaCarretas1,pilaCarretas2,colaEsperaCarretas,colaPagar,listaCajas,listaCompras);
 
     //Ejecutamos la simulación
     char repeticion = 's';
@@ -199,4 +203,35 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     //Verificamos que los clientes paguen
     listaCajas->verificarTurnos(pilaCarretas1,pilaCarretas2);
 
+    crearGrafica(pilaCarretas1, pilaCarretas2, colaEsperaCarretas, colaPagar, listaCajas, listaCompras);
+
+}
+
+void Inicio::crearGrafica(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2, ColaEspera *colaEsperaCarretas, ColaPagar *colaPagar, ListaCajas *listaCajas, ListaCompras *listaCompras) {
+
+    ofstream file;
+    file.open("GraficaSucesos.dot");
+    file << "digraph Simulacion {" << endl;
+    
+    file << "subgraph cluster_colaEsperaCarretas {" << endl;
+    file << colaEsperaCarretas->dotCode() << endl;    
+    file << "label=\"Cola Para Carretas\";" << endl << "}" << endl;
+
+    
+    file << "subgraph cluster_pilaCarretas1 {" << endl;
+    file << pilaCarretas1->dotCode() << endl;    
+    file << "label=\"Pila de Carretas 1\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_pilaCarretas2 {" << endl;
+    file << pilaCarretas2->dotCode() << endl;    
+    file << "label=\"Pila de Carretas 2\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_listaCompras {" << endl;
+    file << listaCompras->dotCode() << endl;    
+    file << "label=\"Clientes en Compra\";" << endl << "}" << endl;
+
+    file << "}";
+    file.close();
+
+    system("dot -Tpng GraficaSucesos.dot -o GraficaSucesos.png");
 }

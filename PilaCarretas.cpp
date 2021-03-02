@@ -48,3 +48,26 @@ void PilaCarretas::mostrarPila() {
 int PilaCarretas::getSize() {
     return size;
 }
+
+string PilaCarretas::dotCode() {
+    string codigo = "";
+    if(cabeza != nullptr) {
+        NodoPilaCarretas *tmp = cabeza;
+        NodoPilaCarretas *tmpSig = cabeza;
+        while(tmp != nullptr) {
+            codigo.append("Carreta");
+            codigo.append(to_string(tmp->carreta->id));
+            codigo.append(";\n ");
+            tmp = tmp->siguiente;
+        }
+        while(tmpSig->siguiente != nullptr) {
+            codigo.append("Carreta");
+            codigo.append(to_string(tmpSig->carreta->id));
+            codigo.append(" -> Carreta");
+            codigo.append(to_string(tmpSig->siguiente->carreta->id));
+            codigo.append(";\n ");
+            tmpSig = tmpSig->siguiente;
+        }
+    }
+    return codigo;
+}

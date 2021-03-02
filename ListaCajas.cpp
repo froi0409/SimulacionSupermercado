@@ -1,6 +1,7 @@
 #include "ListaCajas.h"
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
 using namespace std;
 ListaCajas::ListaCajas() {
     this->inicio = nullptr;
