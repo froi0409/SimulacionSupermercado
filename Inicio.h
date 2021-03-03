@@ -22,5 +22,6 @@ class Inicio {
         int pasosSimulacion = 0;
         int clientesTotales = 0;
         int carretasTotales = 0;
+        int inicio = true;
 };
 #endif

@@ -1,46 +1,79 @@
 digraph Simulacion {
 subgraph cluster_colaEsperaCarretas {
-Cliente11;
-Cliente12;
-Cliente13;
-Cliente14;
-Cliente15;
-Cliente11 -> Cliente12;
-Cliente12 -> Cliente13;
-Cliente13 -> Cliente14;
-Cliente14 -> Cliente15;
+node[shape="invhouse"];
 
 label="Cola Para Carretas";
 }
 subgraph cluster_pilaCarretas1 {
-
+node[shape="rectangle"];
+Carreta33;
+ Carreta32;
+ Carreta17;
+ Carreta16;
+ Carreta13;
+ Carreta11;
+ Carreta8;
+ Carreta7;
+ Carreta2;
+ Carreta33 -> Carreta32;
+ Carreta32 -> Carreta17;
+ Carreta17 -> Carreta16;
+ Carreta16 -> Carreta13;
+ Carreta13 -> Carreta11;
+ Carreta11 -> Carreta8;
+ Carreta8 -> Carreta7;
+ Carreta7 -> Carreta2;
+ 
 label="Pila de Carretas 1";
 }
 subgraph cluster_pilaCarretas2 {
-
+node[shape="rectangle"];
+Carreta34;
+ Carreta31;
+ Carreta35;
+ Carreta12;
+ Carreta10;
+ Carreta9;
+ Carreta6;
+ Carreta5;
+ Carreta4;
+ Carreta3;
+ Carreta1;
+ Carreta34 -> Carreta31;
+ Carreta31 -> Carreta35;
+ Carreta35 -> Carreta12;
+ Carreta12 -> Carreta10;
+ Carreta10 -> Carreta9;
+ Carreta9 -> Carreta6;
+ Carreta6 -> Carreta5;
+ Carreta5 -> Carreta4;
+ Carreta4 -> Carreta3;
+ Carreta3 -> Carreta1;
+ 
 label="Pila de Carretas 2";
 }
 subgraph cluster_listaCompras {
-Cliente16[label="Clie:16 Carr:11"];
-Cliente17[label="Clie:17 Carr:12"];
-Cliente18[label="Clie:18 Carr:13"];
-Cliente19[label="Clie:19 Carr:14"];
-Cliente20[label="Clie:20 Carr:15"];
-Cliente1[label="Clie:1 Carr:8"];
-Cliente2[label="Clie:2 Carr:10"];
-Cliente3[label="Clie:3 Carr:7"];
-Cliente4[label="Clie:4 Carr:9"];
-Cliente5[label="Clie:5 Carr:6"];
-Cliente6[label="Clie:6 Carr:2"];
-Cliente7[label="Clie:7 Carr:5"];
-Cliente8[label="Clie:8 Carr:4"];
-Cliente9[label="Clie:9 Carr:3"];
-Cliente10[label="Clie:10 Carr:1"];
-Cliente16 -> Cliente17;
-Cliente17 -> Cliente18;
-Cliente18 -> Cliente19;
-Cliente19 -> Cliente20;
-Cliente20 -> Cliente1;
+node[shape="rectangle"];
+Cliente11[label="Clie:11 Carr:26"];
+Cliente12[label="Clie:12 Carr:27"];
+Cliente13[label="Clie:13 Carr:28"];
+Cliente14[label="Clie:14 Carr:29"];
+Cliente15[label="Clie:15 Carr:30"];
+Cliente1[label="Clie:1 Carr:25"];
+Cliente2[label="Clie:2 Carr:22"];
+Cliente3[label="Clie:3 Carr:24"];
+Cliente4[label="Clie:4 Carr:23"];
+Cliente5[label="Clie:5 Carr:21"];
+Cliente6[label="Clie:6 Carr:15"];
+Cliente7[label="Clie:7 Carr:20"];
+Cliente8[label="Clie:8 Carr:19"];
+Cliente9[label="Clie:9 Carr:18"];
+Cliente10[label="Clie:10 Carr:14"];
+Cliente11 -> Cliente12;
+Cliente12 -> Cliente13;
+Cliente13 -> Cliente14;
+Cliente14 -> Cliente15;
+Cliente15 -> Cliente1;
 Cliente1 -> Cliente2;
 Cliente2 -> Cliente3;
 Cliente3 -> Cliente4;
@@ -50,8 +83,42 @@ Cliente6 -> Cliente7;
 Cliente7 -> Cliente8;
 Cliente8 -> Cliente9;
 Cliente9 -> Cliente10;
-Cliente10 -> Cliente16;
+Cliente10 -> Cliente11;
 
 label="Clientes en Compra";
+}
+subgraph cluster_colaPagos {
+node[shape="invhouse"];
+Cliente22;
+Cliente23;
+Cliente24;
+Cliente25;
+Cliente26;
+Cliente27;
+Cliente22 -> Cliente23;
+Cliente23 -> Cliente24;
+Cliente24 -> Cliente25;
+Cliente25 -> Cliente26;
+Cliente26 -> Cliente27;
+
+label="Cola Para Pasar a Caja";
+}
+subgraph cluster_listaCajas {
+node[shape="rectangle"];
+Caja1[label="Caja 1 \nEstado: LIBRE\nTurnos: 0"];
+Caja2[label="Caja 2 \nEstado: LIBRE\nTurnos: 0"];
+Caja3[label="Caja 3 \nEstado: LIBRE\nTurnos: 0"];
+Caja4[label="Caja 4 \nEstado: LIBRE\nTurnos: 0"];
+Caja5[label="Caja 5 \nEstado: OCUPADA\nTurnos: 3"];
+Caja1 -> Caja2;
+Caja2 -> Caja3;
+Caja3 -> Caja4;
+Caja4 -> Caja5;
+Caja5 -> Caja4;
+Caja4 -> Caja3;
+Caja3 -> Caja2;
+Caja2 -> Caja1;
+
+label="Estado de las Cajas";
 }
 }

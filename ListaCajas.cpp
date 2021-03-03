@@ -35,6 +35,29 @@ void ListaCajas::mostrarLista() {
     }
 }
 
+string ListaCajas::dotCode() {
+    string codigo = "";
+    if(inicio != nullptr) {
+        NodoListaCajas *tmp = inicio;
+        while(tmp != nullptr) {
+            string ideCaja = to_string(tmp->idCaja);
+            codigo.append("Caja" + ideCaja + "[label=\"Caja " + ideCaja+ " \\nEstado: " + tmp->estado + "\\nTurnos: " + to_string(tmp->turnosOcupados) + "\"];\n");
+            tmp = tmp->siguiente;
+        }
+        tmp = inicio;
+        while(tmp->siguiente != nullptr) {
+            codigo.append("Caja" + to_string(tmp->idCaja) + " -> Caja" + to_string(tmp->siguiente->idCaja) + ";\n");
+            tmp = tmp->siguiente;
+        }    
+        tmp = fin;
+        while(tmp->anterior != nullptr) {
+            codigo.append("Caja" + to_string(tmp->idCaja) + " -> Caja" + to_string(tmp->anterior->idCaja) + ";\n");
+            tmp = tmp->anterior;
+        }
+    }
+    return codigo;
+}
+
 bool ListaCajas::ocuparCaja(Persona* idCliente,Carreta* idCarreta) {
     if(inicio == nullptr) {
         cout << "No hay cajas disponibles";

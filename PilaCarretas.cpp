@@ -20,7 +20,7 @@ void PilaCarretas::push(Carreta* id) {
 //Elimina un elemento de la pila
 Carreta* PilaCarretas::pop() {
     if(cabeza == nullptr) {
-        return 0;
+        return nullptr;
     } else {
         Carreta* idCarreta = cabeza->carreta;
         NodoPilaCarretas *tmp = cabeza;
