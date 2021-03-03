@@ -8,6 +8,7 @@
 #include "Persona.h"
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
 using namespace std;
 
 void Inicio::menuInicial() {
@@ -25,7 +26,7 @@ void Inicio::menuInicial() {
 
     //Mostramos el menú inicial
     cout << "¡BIENVENIDO AL SIMULADOR DE SUPERMERCADO 3000!" << endl;
-    cout << "Ingrese el número de carretas con las que el supermercado contará: ";
+    cout << "Ingrese el número de carretas con las que el supermercado contará inicialmente en las pilas: ";
     cin >> carretasTotales;
     cout << "Ingrese el número de cajas con las que el supermercado contará: ";
     cin >> cajasTotales;
@@ -57,35 +58,36 @@ void Inicio::menuInicial() {
     cout << endl << endl;
 
     //Inicializamos a los clientes que están comprando
+    inicializacionCompras(listaCompras, clientesTotales, carretasTotales, clientesComprando);
     clientesTotales += clientesComprando;
     carretasTotales += clientesComprando;
-    inicializacionCompras(listaCompras, clientesTotales, carretasTotales, clientesComprando);
     cout << "Información de las personas que están comprando:" << endl;
     listaCompras->mostrarLista();
     cout << endl << endl;
 
     //Inicializamos a los clientes que están en la cola de pagos
+    inicializacionPagos(colaPagar, clientesTotales, carretasTotales, clientesPorPagar);
     clientesTotales += clientesComprando;
     carretasTotales += clientesComprando;
-    inicializacionPagos(colaPagar, clientesTotales, carretasTotales, clientesPorPagar);
     colaPagar->mostrarCola();
     cout << endl << endl;
+
+    //Creamos la gráfica inicial
+    crearGrafica(pilaCarretas1,pilaCarretas2,colaEsperaCarretas,colaPagar,listaCajas,listaCompras);
+
+    char continuar;
+    cout << "Se ha generado la gráfica inicial, inngrese cualquier dato para continuar: ";
+    cin >> continuar;
 
     //Ejecutamos la simulación
     char repeticion = 's';
     do {
-        switch(tolower(repeticion)) {
-            case 's':
-                simulacion(pilaCarretas1, pilaCarretas2, colaEsperaCarretas, colaPagar, listaCajas, listaCompras);
-                break;
-            case 'n':
-                break;
+        if(repeticion == 's' || repeticion == 'S') {
+            simulacion(pilaCarretas1, pilaCarretas2, colaEsperaCarretas, colaPagar, listaCajas, listaCompras);
         }
         cout << endl << endl << "¿Desea continuar con la simulación? (s/n): ";
         cin >> repeticion;
     } while(repeticion == 's' || repeticion == 'S');
-    simulacion(pilaCarretas1, pilaCarretas2, colaEsperaCarretas, colaPagar, listaCajas, listaCompras);
-    
 }
 
 //Método que nos sirve para introducir las carretas a una pila cuando se inicia la ejecución de la simulación
@@ -113,20 +115,24 @@ void Inicio::inicializacionCajas(ListaCajas *listaCajas, int cajasTotales) {
 }
 
 void Inicio::inicializacionCompras(ListaCompras *listaCompras, int clientesTotales, int carretasTotales, int clientesComprando) {
-    int inicioClientes = clientesTotales - clientesComprando + 1;
-    int indicadorCarreta = carretasTotales - clientesComprando + 1;
-    for(int i = inicioClientes; i <= clientesTotales; i++) {
-        listaCompras->push(new Persona(i), new Carreta(indicadorCarreta));
-        indicadorCarreta++;
+    int inicioClientes = clientesTotales + 1;
+    int finClientes  = inicioClientes + clientesComprando;
+    int inicioCarretas = carretasTotales + 1;
+    while(inicioClientes < finClientes) {
+        listaCompras->push(new Persona(inicioClientes), new Carreta(inicioCarretas));
+        inicioClientes++;
+        inicioCarretas++;
     }
 }
 
 void Inicio::inicializacionPagos(ColaPagar *colaPagar, int clientesTotales, int carretasTotales, int clientesPorPagar) {
-    int inicioClientes = clientesTotales - clientesPorPagar + 1;
-    int indicadorCarreta = carretasTotales - clientesPorPagar + 1;
-    for(int i = inicioClientes; i <= clientesTotales; i++) {
-        colaPagar->push(new Persona(i), new Carreta(indicadorCarreta));
-        indicadorCarreta++;
+    int inicioClientes = clientesTotales + 1;
+    int finClientes  = inicioClientes + clientesPorPagar;
+    int inicioCarretas = carretasTotales + 1;
+    while(inicioClientes < finClientes) {
+        colaPagar->push(new Persona(inicioClientes), new Carreta(inicioCarretas));
+        inicioClientes++;
+        inicioCarretas++;
     }
 }
 
@@ -134,7 +140,7 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     //Iniciaomos con la simulación
     pasosSimulacion++;
     cout << "***************************************PASO " << pasosSimulacion << "***************************************" << endl;
-    
+
     //Ingresamos clientes a la cola de compras si hay carretas disponibles y clientes en la cola de espera
     int clientesEnEspera = colaEsperaCarretas->getSize(), carretasEnPila1 = pilaCarretas1->getSize(), carretasEnPila2 = pilaCarretas2->getSize();
     while (clientesEnEspera > 0 && (carretasEnPila1 > 0 || carretasEnPila2 > 0)) {
@@ -199,4 +205,42 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     //Verificamos que los clientes paguen
     listaCajas->verificarTurnos(pilaCarretas1,pilaCarretas2);
 
+    crearGrafica(pilaCarretas1, pilaCarretas2, colaEsperaCarretas, colaPagar, listaCajas, listaCompras);
+
+}
+
+void Inicio::crearGrafica(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2, ColaEspera *colaEsperaCarretas, ColaPagar *colaPagar, ListaCajas *listaCajas, ListaCompras *listaCompras) {
+
+    ofstream file;
+    file.open("GraficaSucesos.dot");
+    file << "digraph Simulacion {" << endl;
+    
+    file << "subgraph cluster_colaEsperaCarretas {" << endl << "node[shape=\"invhouse\"];" << endl;
+    file << colaEsperaCarretas->dotCode() << endl;    
+    file << "label=\"Cola Para Carretas\";" << endl << "}" << endl;
+    
+    file << "subgraph cluster_pilaCarretas1 {" << endl << "node[shape=\"rectangle\"];" << endl;
+    file << pilaCarretas1->dotCode() << endl;    
+    file << "label=\"Pila de Carretas 1\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_pilaCarretas2 {" << endl << "node[shape=\"rectangle\"];" << endl;
+    file << pilaCarretas2->dotCode() << endl;    
+    file << "label=\"Pila de Carretas 2\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_listaCompras {" << endl << "node[shape=\"rectangle\"];" << endl;
+    file << listaCompras->dotCode() << endl;    
+    file << "label=\"Clientes en Compra\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_colaPagos {" << endl << "node[shape=\"invhouse\"];" << endl;
+    file << colaPagar->dotCode() << endl;    
+    file << "label=\"Cola Para Pasar a Caja\";" << endl << "}" << endl;
+
+    file << "subgraph cluster_listaCajas {" << endl << "node[shape=\"rectangle\"];" << endl;
+    file << listaCajas->dotCode() << endl;    
+    file << "label=\"Estado de las Cajas\";" << endl << "}" << endl;
+
+    file << "}";
+    file.close();
+
+    system("dot -Tpng GraficaSucesos.dot -o GraficaSucesos.png");
 }

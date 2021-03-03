@@ -17,9 +17,11 @@ class Inicio {
         void inicializacionCompras(ListaCompras*, int, int, int);
         void inicializacionPagos(ColaPagar*, int, int, int);
         void simulacion(PilaCarretas*,PilaCarretas*,ColaEspera*,ColaPagar*,ListaCajas*,ListaCompras*);
+        void crearGrafica(PilaCarretas*,PilaCarretas*,ColaEspera*,ColaPagar*,ListaCajas*,ListaCompras*);
     private:
         int pasosSimulacion = 0;
         int clientesTotales = 0;
         int carretasTotales = 0;
+        int inicio = true;
 };
 #endif

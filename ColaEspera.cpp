@@ -1,6 +1,7 @@
 #include "ColaEspera.h"
 #include <iostream>
 #include <cstdlib>
+#include <string>
 using namespace std;
 ColaEspera::ColaEspera() {
     this->inicio = nullptr;
@@ -53,4 +54,21 @@ void ColaEspera::mostrarCola() {
 
 int ColaEspera::getSize() {
     return size;
+}
+
+string ColaEspera::dotCode() {
+    string codigo = "";
+    if(inicio != nullptr) {
+        NodoColaEspera *tmp = inicio;
+        while(tmp != nullptr) {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + ";\n");
+            tmp = tmp->siguiente;
+        }
+        tmp = inicio;
+        while(tmp->siguiente != nullptr) {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + " -> Cliente" + to_string(tmp->siguiente->idCliente->idPersona) + ";\n");
+            tmp = tmp->siguiente;
+        }
+    }
+    return codigo;
 }

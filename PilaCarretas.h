@@ -2,7 +2,9 @@
 #define PILACARRETAS_H
 #include "Carreta.h"
 #include "NodoPilaCarretas.h"
-#include <string>
+#include <iostream>
+#include <fstream>
+using namespace std;
 class PilaCarretas{
     public:
         PilaCarretas();
@@ -11,6 +13,7 @@ class PilaCarretas{
         Carreta* pop();
         void mostrarPila();
         int getSize();
+        string dotCode();
     private:
         int size;
 };

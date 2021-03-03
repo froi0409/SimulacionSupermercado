@@ -4,6 +4,8 @@
 #include "PilaCarretas.h"
 #include "Persona.h"
 #include "Carreta.h"
+#include <string>
+using namespace std;
 class ListaCajas {
     public:
         ListaCajas();
@@ -14,6 +16,7 @@ class ListaCajas {
         void verificarTurnos(PilaCarretas*, PilaCarretas*);
         bool ocuparCaja(Persona*,Carreta*);
         int getSize();
+        string dotCode();
     private:
         int size;
 };

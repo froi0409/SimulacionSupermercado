@@ -50,3 +50,20 @@ void ColaPagar::mostrarCola() {
 int ColaPagar::getSize() {
     return size;
 }
+
+string ColaPagar::dotCode() {
+    string codigo = "";
+    if(inicio != nullptr) {
+        NodoColaPagar *tmp = inicio;
+        while (tmp != nullptr) {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + ";\n");
+            tmp = tmp->siguiente;
+        }
+        tmp = inicio;
+        while (tmp->siguiente != nullptr) {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + " -> Cliente" + to_string(tmp->siguiente->idCliente->idPersona) + ";\n");
+            tmp = tmp->siguiente;
+        }
+    }
+    return codigo;
+}

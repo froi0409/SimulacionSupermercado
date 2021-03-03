@@ -4,7 +4,7 @@
 class NodoPilaCarretas {
     public:
         NodoPilaCarretas(Carreta*);
-        Carreta *carreta;
-        NodoPilaCarretas *siguiente;
+        Carreta *carreta; //Cajita que contiene los datos
+        NodoPilaCarretas *siguiente; //Flecha que apunta al otro dato
 };
 #endif

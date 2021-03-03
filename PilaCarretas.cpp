@@ -20,7 +20,7 @@ void PilaCarretas::push(Carreta* id) {
 //Elimina un elemento de la pila
 Carreta* PilaCarretas::pop() {
     if(cabeza == nullptr) {
-        return 0;
+        return nullptr;
     } else {
         Carreta* idCarreta = cabeza->carreta;
         NodoPilaCarretas *tmp = cabeza;
@@ -47,4 +47,27 @@ void PilaCarretas::mostrarPila() {
 //Metodo que nos sirve para saber la cantidad de elementos que tiene la pila
 int PilaCarretas::getSize() {
     return size;
+}
+
+string PilaCarretas::dotCode() {
+    string codigo = "";
+    if(cabeza != nullptr) {
+        NodoPilaCarretas *tmp = cabeza;
+        NodoPilaCarretas *tmpSig = cabeza;
+        while(tmp != nullptr) {
+            codigo.append("Carreta");
+            codigo.append(to_string(tmp->carreta->id));
+            codigo.append(";\n ");
+            tmp = tmp->siguiente;
+        }
+        while(tmpSig->siguiente != nullptr) {
+            codigo.append("Carreta");
+            codigo.append(to_string(tmpSig->carreta->id));
+            codigo.append(" -> Carreta");
+            codigo.append(to_string(tmpSig->siguiente->carreta->id));
+            codigo.append(";\n ");
+            tmpSig = tmpSig->siguiente;
+        }
+    }
+    return codigo;
 }

@@ -66,3 +66,20 @@ void ListaCompras::mostrarLista() {
         } while(tmp->siguiente != inicio->siguiente);
     }
 }
+
+string ListaCompras::dotCode() {
+    string codigo = "";
+    if (inicio != nullptr) {
+        NodoListaCompras *tmp = inicio;
+        do {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + "[label=\"Clie:" + to_string(tmp->idCliente->idPersona) +" Carr:" + to_string(tmp->idCarreta->id) + "\"];\n");
+            tmp = tmp->siguiente;
+        } while(tmp->siguiente != inicio->siguiente);
+        tmp = inicio;
+        do {
+            codigo.append("Cliente" + to_string(tmp->idCliente->idPersona) + " -> Cliente" + to_string(tmp->siguiente->idCliente->idPersona) + ";\n");
+            tmp = tmp->siguiente;
+        } while(tmp->siguiente != inicio->siguiente);
+    }
+    return codigo;
+}
