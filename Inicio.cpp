@@ -141,6 +141,22 @@ void Inicio::simulacion(PilaCarretas *pilaCarretas1, PilaCarretas *pilaCarretas2
     pasosSimulacion++;
     cout << "***************************************PASO " << pasosSimulacion << "***************************************" << endl;
 
+    if(!inicio) {
+        int personasNuevas;
+        cout << "¿Cuántas personas ingresarán al supermercado?: ";
+        cin >> personasNuevas;
+        int inicioClientes = clientesTotales + 1;
+        int finClientes = inicioClientes + personasNuevas;
+        while(inicioClientes < finClientes) {
+            colaEsperaCarretas->push(new Persona(inicioClientes));
+            cout << "El cliente " << inicioClientes << " ha ingresado al supermercado." << endl;
+            inicioClientes++;
+        }
+        clientesTotales += personasNuevas;
+    } else {
+        inicio = false;
+    }
+
     //Ingresamos clientes a la cola de compras si hay carretas disponibles y clientes en la cola de espera
     int clientesEnEspera = colaEsperaCarretas->getSize(), carretasEnPila1 = pilaCarretas1->getSize(), carretasEnPila2 = pilaCarretas2->getSize();
     while (clientesEnEspera > 0 && (carretasEnPila1 > 0 || carretasEnPila2 > 0)) {
